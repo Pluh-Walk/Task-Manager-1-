@@ -8,6 +8,7 @@ package testapptaskm;
 
 import EasterEgg.Renzcaballeroz;
 import admin.adminDashboard;
+import config.Session;
 import config.dbConnector;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -58,12 +59,22 @@ public class loginForm extends javax.swing.JFrame {
     static String type;
     public static boolean loginAcc(String username, String password){
         dbConnector connector = new dbConnector();
+        
         try{
             String query = "SELECT * FROM tbl_user  WHERE u_username = '" + username + "' AND u_pass = '" + password + "'";
             ResultSet resultSet = connector.getData(query);
             if(resultSet.next()){
                 status = resultSet.getString("u_status");
                 type = resultSet.getString("u_type");
+                Session sess = Session.getInstance();
+                sess.setUid(resultSet.getInt("u_id"));
+                sess.setFname(resultSet.getString("u_name"));
+                sess.setLname(resultSet.getString("u_lname"));
+                sess.setEmail(resultSet.getString("u_email"));
+                sess.setUsername(resultSet.getString("u_username"));
+                sess.setStatus(resultSet.getString("u_status"));
+                sess.setType(resultSet.getString("u_type"));
+                System.out.println(""+sess.getUid());
                 return true;
             }else{
                 return false;
