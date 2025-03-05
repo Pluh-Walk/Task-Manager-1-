@@ -6,6 +6,10 @@
 package testapptaskm;
 
 import config.dbConnector;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -21,6 +25,29 @@ public class regForm extends javax.swing.JFrame {
      */
     public regForm() {
         initComponents();
+         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    int screenWidth = screenSize.width;
+    int screenHeight = screenSize.height;
+
+ 
+    int frameWidth = 540;
+    int frameHeight = 330;
+
+ 
+    int centerX = (screenWidth - frameWidth) / 2;
+    int centerY = (screenHeight - frameHeight) / 2;
+
+ 
+    setBounds(centerX, centerY, frameWidth, frameHeight);
+    setResizable(false);
+
+   
+    addComponentListener(new ComponentAdapter() {
+        @Override
+        public void componentMoved(ComponentEvent e) {
+            setLocation(centerX, centerY); 
+        }
+    });
     }
     public static String email, usname;
     public boolean duplicateCheck() {
@@ -70,6 +97,8 @@ public class regForm extends javax.swing.JFrame {
         ps = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -136,7 +165,7 @@ public class regForm extends javax.swing.JFrame {
                 utActionPerformed(evt);
             }
         });
-        getContentPane().add(ut, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 230, 60, 30));
+        getContentPane().add(ut, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 240, 60, 20));
 
         ps.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -161,6 +190,20 @@ public class regForm extends javax.swing.JFrame {
         });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 270, -1, -1));
 
+        jPanel1.setBackground(new java.awt.Color(204, 102, 255));
+        jPanel1.setLayout(null);
+
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/question.png"))); // NOI18N
+        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel8MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLabel8);
+        jLabel8.setBounds(80, 100, 70, 70);
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 300));
+
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -174,7 +217,7 @@ public class regForm extends javax.swing.JFrame {
     }//GEN-LAST:event_lnActionPerformed
 
     private void emActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_emActionPerformed
 
     private void unActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unActionPerformed
@@ -186,42 +229,55 @@ public class regForm extends javax.swing.JFrame {
     }//GEN-LAST:event_psActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        new loginForm().setVisible(true); 
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-      dbConnector dbc = new dbConnector();
+        dbConnector dbc = new dbConnector();
 
-if (fn.getText().isEmpty() || ln.getText().isEmpty() || em.getText().isEmpty() || un.getText().isEmpty() || ps.getPassword().length == 0) {
-    JOptionPane.showMessageDialog(null, "All fields are required!");
-    return; 
-} else if (duplicateCheck()) {
-    // Duplicate found; exit the method to prevent insertion
-    return; 
-}
+    if (fn.getText().isEmpty() || ln.getText().isEmpty() || em.getText().isEmpty() || un.getText().isEmpty() || ps.getPassword().length == 0) {
+        JOptionPane.showMessageDialog(null, "All fields are required!");
+        return; 
+    } else if (duplicateCheck()) {
+       
+        return; 
+    }
 
-if (ps.getPassword().length < 8) {
-    JOptionPane.showMessageDialog(null, "Password should be at least 8 characters long!");
-    return; 
-}
+    if (ps.getPassword().length < 8) {
+        JOptionPane.showMessageDialog(null, "Password should be at least 8 characters long!");
+        return; 
+    }
 
-String query = String.format("INSERT INTO tbl_user (u_name, u_lname, u_email, u_username, u_pass, u_type, u_status) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', 'Pending')",
-        fn.getText(), ln.getText(), em.getText(), un.getText(), new String(ps.getPassword()), ut.getSelectedItem());
+    // Email validation using regex
+    String email = em.getText();
+    String emailRegex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+    if (!email.matches(emailRegex)) {
+        JOptionPane.showMessageDialog(null, "Invalid email format!");
+        return;
+    }
 
-if (dbc.insertData(query)) {
-    JOptionPane.showMessageDialog(null, "Registration Success!");
-    new loginForm().setVisible(true); 
-    this.dispose();
-} else {
-    JOptionPane.showMessageDialog(null, "Connection Error!");
-}
+    String query = String.format("INSERT INTO tbl_user (u_name, u_lname, u_email, u_username, u_pass, u_type, u_status) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', 'Pending')",
+            fn.getText(), ln.getText(), email, un.getText(), new String(ps.getPassword()), ut.getSelectedItem());
+
+    if (dbc.insertData(query)) {
+        JOptionPane.showMessageDialog(null, "Registration Success!");
+        new loginForm().setVisible(true); 
+        this.dispose();
+    } else {
+        JOptionPane.showMessageDialog(null, "Connection Error!");
+    }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void utActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_utActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_utActionPerformed
 
-    /**
+    private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
+      JOptionPane.showMessageDialog(null, "Input User Info Into The Blanks");
+    }//GEN-LAST:event_jLabel8MouseClicked
+
+    /**SS
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -268,6 +324,8 @@ if (dbc.insertData(query)) {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField ln;
     private javax.swing.JPasswordField ps;
     private javax.swing.JTextField un;

@@ -40,7 +40,7 @@ public class Renzcaballeroz extends javax.swing.JFrame {
         Main.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 40, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/image.png"))); // NOI18N
-        Main.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 11, 780, -1));
+        Main.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 11, 860, 790));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
