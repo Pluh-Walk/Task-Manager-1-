@@ -82,7 +82,6 @@ public class regForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         fn = new javax.swing.JTextField();
@@ -99,13 +98,11 @@ public class regForm extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel1.setText("Registration Form");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 11, 150, 26));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("First Name");
@@ -201,6 +198,15 @@ public class regForm extends javax.swing.JFrame {
         });
         jPanel1.add(jLabel8);
         jLabel8.setBounds(80, 100, 70, 70);
+
+        jPanel2.setBackground(new java.awt.Color(12, 226, 240));
+
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel1.setText("Registration Form");
+        jPanel2.add(jLabel1);
+
+        jPanel1.add(jPanel2);
+        jPanel2.setBounds(-30, 0, 590, 30);
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 300));
 
@@ -326,6 +332,7 @@ public class regForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField ln;
     private javax.swing.JPasswordField ps;
     private javax.swing.JTextField un;

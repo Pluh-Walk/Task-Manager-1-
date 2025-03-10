@@ -104,6 +104,7 @@ public class loginForm extends javax.swing.JFrame {
         tr = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -166,6 +167,10 @@ public class loginForm extends javax.swing.JFrame {
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/001-team.png"))); // NOI18N
         jPanel1.add(jLabel5);
         jLabel5.setBounds(40, 60, 130, 110);
+
+        jPanel2.setBackground(new java.awt.Color(12, 226, 240));
+        jPanel1.add(jPanel2);
+        jPanel2.setBounds(0, 0, 590, 40);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -268,6 +273,7 @@ public class loginForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPasswordField pass;
     private javax.swing.JLabel tr;
     private javax.swing.JTextField user;

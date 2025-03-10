@@ -31,8 +31,8 @@ public class regFormAD extends javax.swing.JFrame {
     int screenHeight = screenSize.height;
 
  
-    int frameWidth = 537;
-    int frameHeight = 347;
+    int frameWidth = 589;
+    int frameHeight = 439;
 
  
     int centerX = (screenWidth - frameWidth) / 2;
@@ -78,87 +78,99 @@ public class regFormAD extends javax.swing.JFrame {
     
     return false; // No duplicates found
 }
-
+    public boolean updateCheck() {
+    dbConnector dbc = new dbConnector();
+    
+    try {
+    String query = "SELECT * FROM tbl_user WHERE (u_username = '" + un.getText() + "' OR u_email = '" + em.getText() + "')AND u_id != '"+uid.getText()+"'   ";
+    ResultSet resultSet = dbc.getData(query);
+    
+    if (resultSet.next()) {
+        email = resultSet.getString("u_email");
+        if(email.equals(em.getText())) {
+            JOptionPane.showMessageDialog(null, "Email is Already Used!");
+            em.setText("");
+        }
+        
+        usname = resultSet.getString("u_username");
+        if(usname.equals(un.getText())) {
+            JOptionPane.showMessageDialog(null, "Username is Already Used!");
+            un.setText("");
+        }
+        return true;
+    }
+} catch (SQLException ex) {
+    System.out.println("SQL Exception: " + ex);
+}
+    
+    return false; // No duplicates found
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        fn = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        ln = new javax.swing.JTextField();
-        em = new javax.swing.JTextField();
-        un = new javax.swing.JTextField();
-        ut = new javax.swing.JComboBox<>();
-        ps = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
+        add = new javax.swing.JButton();
+        cancel = new javax.swing.JButton();
+        us = new javax.swing.JComboBox<>();
+        ut = new javax.swing.JComboBox<>();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        fn = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        ln = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        em = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        un = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        ps = new javax.swing.JPasswordField();
+        refresh = new javax.swing.JButton();
+        update = new javax.swing.JButton();
+        del = new javax.swing.JButton();
+        clear = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        uid = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel1.setText("Employee Deployment");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 11, 200, 26));
+        jLabel1.setText("Employee Attribute Manipulator");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel2.setText("First Name");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(235, 41, -1, -1));
+        jPanel1.setBackground(new java.awt.Color(204, 102, 255));
+        jPanel1.setLayout(null);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel3.setText("Last Name");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(236, 81, -1, -1));
-
-        fn.addActionListener(new java.awt.event.ActionListener() {
+        add.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        add.setText("ADD");
+        add.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fnActionPerformed(evt);
+                addActionPerformed(evt);
             }
         });
-        getContentPane().add(fn, new org.netbeans.lib.awtextra.AbsoluteConstraints(319, 37, 186, 29));
+        jPanel1.add(add);
+        add.setBounds(310, 80, 90, 30);
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel4.setText("Email");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(273, 121, -1, -1));
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel5.setText("Username");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 159, -1, -1));
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel6.setText("Password");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 200, -1, -1));
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel7.setText("Account Type");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 240, -1, -1));
-
-        ln.addActionListener(new java.awt.event.ActionListener() {
+        cancel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        cancel.setText("CANCEL");
+        cancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lnActionPerformed(evt);
+                cancelActionPerformed(evt);
             }
         });
-        getContentPane().add(ln, new org.netbeans.lib.awtextra.AbsoluteConstraints(319, 77, 186, 29));
+        jPanel1.add(cancel);
+        cancel.setBounds(420, 80, 90, 30);
 
-        em.addActionListener(new java.awt.event.ActionListener() {
+        us.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pending", "Active", " ", " " }));
+        us.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                emActionPerformed(evt);
+                usActionPerformed(evt);
             }
         });
-        getContentPane().add(em, new org.netbeans.lib.awtextra.AbsoluteConstraints(319, 117, 186, 29));
-
-        un.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                unActionPerformed(evt);
-            }
-        });
-        getContentPane().add(un, new org.netbeans.lib.awtextra.AbsoluteConstraints(319, 155, 186, 29));
+        jPanel1.add(us);
+        us.setBounds(110, 370, 180, 30);
 
         ut.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "User", " " }));
         ut.addActionListener(new java.awt.event.ActionListener() {
@@ -166,118 +178,280 @@ public class regFormAD extends javax.swing.JFrame {
                 utActionPerformed(evt);
             }
         });
-        getContentPane().add(ut, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 240, 60, 20));
+        jPanel1.add(ut);
+        ut.setBounds(110, 330, 180, 30);
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel9.setText("User Status");
+        jPanel1.add(jLabel9);
+        jLabel9.setBounds(20, 370, 80, 30);
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel7.setText("Account Type");
+        jPanel1.add(jLabel7);
+        jLabel7.setBounds(10, 330, 95, 30);
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel2.setText("First Name");
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(20, 127, 90, 30);
+
+        fn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fnActionPerformed(evt);
+            }
+        });
+        jPanel1.add(fn);
+        fn.setBounds(110, 130, 180, 29);
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel3.setText("Last Name");
+        jPanel1.add(jLabel3);
+        jLabel3.setBounds(20, 167, 90, 30);
+
+        ln.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lnActionPerformed(evt);
+            }
+        });
+        jPanel1.add(ln);
+        ln.setBounds(110, 170, 180, 29);
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel4.setText("Email");
+        jPanel1.add(jLabel4);
+        jLabel4.setBounds(60, 207, 50, 30);
+
+        em.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                emActionPerformed(evt);
+            }
+        });
+        jPanel1.add(em);
+        em.setBounds(110, 210, 180, 29);
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel5.setText("Username");
+        jPanel1.add(jLabel5);
+        jLabel5.setBounds(30, 247, 80, 30);
+
+        un.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                unActionPerformed(evt);
+            }
+        });
+        jPanel1.add(un);
+        un.setBounds(110, 250, 180, 29);
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel6.setText("Password");
+        jPanel1.add(jLabel6);
+        jLabel6.setBounds(30, 287, 70, 30);
 
         ps.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 psActionPerformed(evt);
             }
         });
-        getContentPane().add(ps, new org.netbeans.lib.awtextra.AbsoluteConstraints(319, 195, 186, 28));
+        jPanel1.add(ps);
+        ps.setBounds(110, 290, 180, 28);
 
-        jButton1.setText("CANCEL");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        refresh.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        refresh.setText("REFRESH");
+        refresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                refreshActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 270, 80, 30));
+        jPanel1.add(refresh);
+        refresh.setBounds(420, 160, 90, 30);
 
-        jPanel1.setBackground(new java.awt.Color(204, 102, 255));
-        jPanel1.setLayout(null);
-
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/question.png"))); // NOI18N
-        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel8MouseClicked(evt);
+        update.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        update.setText("UPDATE");
+        update.setEnabled(false);
+        update.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateActionPerformed(evt);
             }
         });
+        jPanel1.add(update);
+        update.setBounds(310, 120, 90, 30);
+
+        del.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        del.setText("DELETE");
+        del.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                delActionPerformed(evt);
+            }
+        });
+        jPanel1.add(del);
+        del.setBounds(420, 120, 90, 30);
+
+        clear.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        clear.setText("CLEAR");
+        clear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearActionPerformed(evt);
+            }
+        });
+        jPanel1.add(clear);
+        clear.setBounds(310, 160, 90, 30);
+
+        jPanel2.setBackground(new java.awt.Color(12, 226, 240));
+        jPanel1.add(jPanel2);
+        jPanel2.setBounds(0, 0, 590, 40);
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel8.setText("User ID");
         jPanel1.add(jLabel8);
-        jLabel8.setBounds(80, 100, 70, 70);
+        jLabel8.setBounds(40, 90, 52, 30);
 
-        jButton2.setText("REGISTER");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        uid.setEnabled(false);
+        uid.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                uidActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2);
-        jButton2.setBounds(410, 270, 90, 30);
+        jPanel1.add(uid);
+        uid.setBounds(110, 90, 180, 29);
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 540, 330));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 590, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel1))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void fnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fnActionPerformed
+    private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
+    if (fn.getText().isEmpty() || ln.getText().isEmpty() || em.getText().isEmpty() 
+        || un.getText().isEmpty() || ps.getText().isEmpty()) {
+        
+        JOptionPane.showMessageDialog(null, "All fields are required!");
+    
+    } else if (ps.getText().length() < 8) {
+        
+        JOptionPane.showMessageDialog(null, "Password character should be 8 above");
+        ps.setText("");
+    
+    } else if (updateCheck()) {
+        
+        System.out.println("Duplicate Exist");
+    
+    } else {
+        dbConnector dbc = new dbConnector();
+        dbc.updateData("UPDATE tbl_user SET u_name = '" + fn.getText() + "', "
+            + "u_lname = '" + ln.getText() + "', "
+            + "u_email = '" + em.getText() + "', "
+            + "u_username = '" + un.getText() + "', "
+            + "u_pass = '" + ps.getText() + "', "
+            + "u_type = '" + ut.getSelectedItem() + "', "
+            + "u_status = '" + us.getSelectedItem() + "' WHERE u_id = '" + uid.getText() + "';");
+        
 
-    private void lnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lnActionPerformed
+        usersForm uf = new usersForm();
+        uf.setVisible(true);
+        this.dispose();
+    }
+    }//GEN-LAST:event_updateActionPerformed
 
-    private void emActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emActionPerformed
-       
-    }//GEN-LAST:event_emActionPerformed
-
-    private void unActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unActionPerformed
+    private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_unActionPerformed
+    }//GEN-LAST:event_refreshActionPerformed
 
     private void psActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_psActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_psActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        new usersForm().setVisible(true); 
-        this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void unActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_unActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        dbConnector dbc = new dbConnector();
+    private void emActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emActionPerformed
 
-    if (fn.getText().isEmpty() || ln.getText().isEmpty() || em.getText().isEmpty() || un.getText().isEmpty() || ps.getPassword().length == 0) {
-        JOptionPane.showMessageDialog(null, "All fields are required!");
-        return; 
-    } else if (duplicateCheck()) {
-       
-        return; 
-    }
+    }//GEN-LAST:event_emActionPerformed
 
-    if (ps.getPassword().length < 8) {
-        JOptionPane.showMessageDialog(null, "Password should be at least 8 characters long!");
-        return; 
-    }
+    private void lnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lnActionPerformed
 
-    // Email validation using regex
-    String email = em.getText();
-    String emailRegex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
-    if (!email.matches(emailRegex)) {
-        JOptionPane.showMessageDialog(null, "Invalid email format!");
-        return;
-    }
-
-    String query = String.format("INSERT INTO tbl_user (u_name, u_lname, u_email, u_username, u_pass, u_type, u_status) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', 'Pending')",
-            fn.getText(), ln.getText(), email, un.getText(), new String(ps.getPassword()), ut.getSelectedItem());
-
-    if (dbc.insertData(query)) {
-        JOptionPane.showMessageDialog(null, "Registration Success!");
-        new usersForm().setVisible(true); 
-        this.dispose();
-    } else {
-        JOptionPane.showMessageDialog(null, "Connection Error!");
-    }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void fnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fnActionPerformed
 
     private void utActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_utActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_utActionPerformed
 
-    private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
-      JOptionPane.showMessageDialog(null, "Input User Info Into The Blanks");
-    }//GEN-LAST:event_jLabel8MouseClicked
+    private void usActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_usActionPerformed
+
+    private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
+        new usersForm().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_cancelActionPerformed
+
+    private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
+        dbConnector dbc = new dbConnector();
+
+        if (fn.getText().isEmpty() || ln.getText().isEmpty() || em.getText().isEmpty() || un.getText().isEmpty() || ps.getPassword().length == 0) {
+            JOptionPane.showMessageDialog(null, "All fields are required!");
+            return;
+        } else if (duplicateCheck()) {
+
+            return;
+        }
+
+        if (ps.getPassword().length < 8) {
+            JOptionPane.showMessageDialog(null, "Password should be at least 8 characters long!");
+            return;
+        }
+
+        // Email validation using regex
+        String email = em.getText();
+        String emailRegex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+        if (!email.matches(emailRegex)) {
+            JOptionPane.showMessageDialog(null, "Invalid email format!");
+            return;
+        }
+
+        String query = String.format("INSERT INTO tbl_user (u_name, u_lname, u_email, u_username, u_pass, u_type, u_status) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '"+us.getSelectedItem()+"')",
+            fn.getText(), ln.getText(), email, un.getText(), new String(ps.getPassword()), ut.getSelectedItem());
+
+        if (dbc.insertData(query)) {
+            JOptionPane.showMessageDialog(null, "Registration Success!");
+            new usersForm().setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Connection Error!");
+        }
+    }//GEN-LAST:event_addActionPerformed
+
+    private void delActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_delActionPerformed
+
+    private void clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_clearActionPerformed
+
+    private void uidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uidActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_uidActionPerformed
 
     /**SS
      * @param args the command line arguments
@@ -316,10 +490,12 @@ public class regFormAD extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField em;
-    private javax.swing.JTextField fn;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    public javax.swing.JButton add;
+    public javax.swing.JButton cancel;
+    public javax.swing.JButton clear;
+    public javax.swing.JButton del;
+    public javax.swing.JTextField em;
+    public javax.swing.JTextField fn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -328,10 +504,16 @@ public class regFormAD extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField ln;
-    private javax.swing.JPasswordField ps;
-    private javax.swing.JTextField un;
-    private javax.swing.JComboBox<String> ut;
+    private javax.swing.JPanel jPanel2;
+    public javax.swing.JTextField ln;
+    public javax.swing.JPasswordField ps;
+    public javax.swing.JButton refresh;
+    public javax.swing.JTextField uid;
+    public javax.swing.JTextField un;
+    public javax.swing.JButton update;
+    public javax.swing.JComboBox<String> us;
+    public javax.swing.JComboBox<String> ut;
     // End of variables declaration//GEN-END:variables
 }
