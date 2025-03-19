@@ -6,10 +6,12 @@
 package testapptaskm;
 
 import config.dbConnector;
+import config.passwordHasher;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -75,7 +77,7 @@ public class regForm extends javax.swing.JFrame {
     System.out.println("SQL Exception: " + ex);
 }
     
-    return false; // No duplicates found
+    return false; 
 }
 
     @SuppressWarnings("unchecked")
@@ -162,7 +164,7 @@ public class regForm extends javax.swing.JFrame {
                 utActionPerformed(evt);
             }
         });
-        getContentPane().add(ut, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 240, 60, 20));
+        getContentPane().add(ut, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 240, 70, 20));
 
         ps.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -246,7 +248,7 @@ public class regForm extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "All fields are required!");
         return; 
     } else if (duplicateCheck()) {
-       
+        JOptionPane.showMessageDialog(null, "Username already exists!");
         return; 
     }
 
@@ -255,7 +257,6 @@ public class regForm extends javax.swing.JFrame {
         return; 
     }
 
-    // Email validation using regex
     String email = em.getText();
     String emailRegex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
     if (!email.matches(emailRegex)) {
@@ -263,15 +264,24 @@ public class regForm extends javax.swing.JFrame {
         return;
     }
 
-    String query = String.format("INSERT INTO tbl_user (u_name, u_lname, u_email, u_username, u_pass, u_type, u_status) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', 'Pending')",
-            fn.getText(), ln.getText(), email, un.getText(), new String(ps.getPassword()), ut.getSelectedItem());
+    try {
+        String hashedPassword = passwordHasher.hashPassword(new String(ps.getPassword()));
+        String userType = ut.getSelectedItem().toString();
+        String status = userType.equalsIgnoreCase("Admin") ? "Active" : "Pending"; 
 
-    if (dbc.insertData(query)) {
-        JOptionPane.showMessageDialog(null, "Registration Success!");
-        new loginForm().setVisible(true); 
-        this.dispose();
-    } else {
-        JOptionPane.showMessageDialog(null, "Connection Error!");
+        String query = String.format("INSERT INTO tbl_user (u_name, u_lname, u_email, u_username, u_pass, u_type, u_status) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+                fn.getText(), ln.getText(), email, un.getText(), hashedPassword, userType, status);
+
+        if (dbc.insertData(query)) {
+            JOptionPane.showMessageDialog(null, "Registration Success!");
+            new loginForm().setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Connection Error!");
+        }
+    } catch (NoSuchAlgorithmException ex) {
+        JOptionPane.showMessageDialog(null, "Error hashing password!");
+        ex.printStackTrace();
     }
     }//GEN-LAST:event_jButton2ActionPerformed
 

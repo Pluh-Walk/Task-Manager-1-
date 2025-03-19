@@ -10,10 +10,12 @@ import EasterEgg.Renzcaballeroz;
 import admin.adminDashboard;
 import config.Session;
 import config.dbConnector;
+import config.passwordHasher;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -58,33 +60,44 @@ public class loginForm extends javax.swing.JFrame {
     static String status;
     static String type;
     public static boolean loginAcc(String username, String password){
-        dbConnector connector = new dbConnector();
+      dbConnector connector = new dbConnector();
+
+try {
+    String query = "SELECT * FROM tbl_user WHERE u_username = '" + username + "'";
+    ResultSet resultSet = connector.getData(query);
+
+    if (resultSet.next()) {
+        String hashedPass = resultSet.getString("u_pass");
+        String rehashedPass = passwordHasher.hashPassword(password);
+
         
-        try{
-            String query = "SELECT * FROM tbl_user  WHERE u_username = '" + username + "' AND u_pass = '" + password + "'";
-            ResultSet resultSet = connector.getData(query);
-            if(resultSet.next()){
-                status = resultSet.getString("u_status");
-                type = resultSet.getString("u_type");
-                Session sess = Session.getInstance();
-                sess.setUid(resultSet.getInt("u_id"));
-                sess.setFname(resultSet.getString("u_name"));
-                sess.setLname(resultSet.getString("u_lname"));
-                sess.setEmail(resultSet.getString("u_email"));
-                sess.setUsername(resultSet.getString("u_username"));
-                sess.setStatus(resultSet.getString("u_status"));
-                sess.setType(resultSet.getString("u_type"));
-                System.out.println(""+sess.getUid());
-                return true;
-            }else{
-                return false;
-            }
-        }catch (SQLException ex) {
+        System.out.println(""+hashedPass);
+        System.out.println(""+rehashedPass);
+        if (hashedPass.equals(rehashedPass)) {
+            status = resultSet.getString("u_status");
+            type = resultSet.getString("u_type");
+
+            Session sess = Session.getInstance();
+            sess.setUid(resultSet.getInt("u_id"));
+            sess.setFname(resultSet.getString("u_name"));
+            sess.setLname(resultSet.getString("u_lname"));
+            sess.setEmail(resultSet.getString("u_email"));
+            sess.setUsername(resultSet.getString("u_username"));
+            sess.setType(resultSet.getString("u_type"));
+            sess.setStatus(resultSet.getString("u_status"));
+
+            return true;
+        } else {
+            System.out.println("Password Don't Match");
             return false;
         }
-
+    } else {
+        return false;
     }
-
+} catch (SQLException | NoSuchAlgorithmException ex) {
+    return false;
+}
+    }   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

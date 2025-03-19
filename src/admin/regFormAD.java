@@ -151,7 +151,7 @@ public class regFormAD extends javax.swing.JFrame {
             }
         });
         jPanel1.add(add);
-        add.setBounds(310, 80, 90, 30);
+        add.setBounds(310, 110, 90, 30);
 
         cancel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         cancel.setText("CANCEL");
@@ -161,7 +161,7 @@ public class regFormAD extends javax.swing.JFrame {
             }
         });
         jPanel1.add(cancel);
-        cancel.setBounds(420, 80, 90, 30);
+        cancel.setBounds(420, 190, 90, 30);
 
         us.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pending", "Active", " ", " " }));
         us.addActionListener(new java.awt.event.ActionListener() {
@@ -264,7 +264,7 @@ public class regFormAD extends javax.swing.JFrame {
             }
         });
         jPanel1.add(refresh);
-        refresh.setBounds(420, 160, 90, 30);
+        refresh.setBounds(420, 150, 90, 30);
 
         update.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         update.setText("UPDATE");
@@ -275,7 +275,7 @@ public class regFormAD extends javax.swing.JFrame {
             }
         });
         jPanel1.add(update);
-        update.setBounds(310, 120, 90, 30);
+        update.setBounds(310, 150, 90, 30);
 
         del.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         del.setText("DELETE");
@@ -285,7 +285,7 @@ public class regFormAD extends javax.swing.JFrame {
             }
         });
         jPanel1.add(del);
-        del.setBounds(420, 120, 90, 30);
+        del.setBounds(420, 110, 90, 30);
 
         clear.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         clear.setText("CLEAR");
@@ -295,7 +295,7 @@ public class regFormAD extends javax.swing.JFrame {
             }
         });
         jPanel1.add(clear);
-        clear.setBounds(310, 160, 90, 30);
+        clear.setBounds(310, 190, 90, 30);
 
         jPanel2.setBackground(new java.awt.Color(12, 226, 240));
         jPanel1.add(jPanel2);

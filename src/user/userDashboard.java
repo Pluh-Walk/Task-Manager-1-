@@ -7,6 +7,7 @@ package user;
 
 import admin.*;
 import config.Session;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ComponentAdapter;
@@ -61,6 +62,9 @@ public class userDashboard extends javax.swing.JFrame {
         c_user = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
+        acc_as = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -142,6 +146,48 @@ public class userDashboard extends javax.swing.JFrame {
 
         jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 590, 30));
 
+        acc_as.setBackground(new java.awt.Color(255, 153, 102));
+        acc_as.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                acc_asMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                acc_asMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                acc_asMouseExited(evt);
+            }
+        });
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/account-settings (2).png"))); // NOI18N
+
+        jLabel4.setText("Account Settings");
+
+        javax.swing.GroupLayout acc_asLayout = new javax.swing.GroupLayout(acc_as);
+        acc_as.setLayout(acc_asLayout);
+        acc_asLayout.setHorizontalGroup(
+            acc_asLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(acc_asLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, acc_asLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18))
+        );
+        acc_asLayout.setVerticalGroup(
+            acc_asLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(acc_asLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel2.add(acc_as, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 110, 100, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -178,6 +224,26 @@ public class userDashboard extends javax.swing.JFrame {
         c_user.setText(""+sess.getFname());
         }
     }//GEN-LAST:event_formWindowActivated
+
+    private void acc_asMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_acc_asMouseClicked
+        accountDetails accd = new accountDetails();
+       accd.setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_acc_asMouseClicked
+
+    private void acc_asMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_acc_asMouseEntered
+        Color navcolor = new Color(255,153,102);
+        Color hovercolor = new Color(204,255,51);
+        
+        acc_as.setBackground(hovercolor);
+    }//GEN-LAST:event_acc_asMouseEntered
+
+    private void acc_asMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_acc_asMouseExited
+        Color navcolor = new Color(255,153,102);
+        Color hovercolor = new Color(204,255,51);
+        
+        acc_as.setBackground(hovercolor);
+    }//GEN-LAST:event_acc_asMouseExited
 
     /**
      * @param args the command line arguments
@@ -218,9 +284,12 @@ public class userDashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel acc_as;
     private javax.swing.JLabel c_user;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

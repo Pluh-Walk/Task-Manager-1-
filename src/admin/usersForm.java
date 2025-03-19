@@ -149,8 +149,8 @@ public class usersForm extends javax.swing.JFrame {
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, -1, -1));
 
         acc_id.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        acc_id.setText("ID");
-        jPanel1.add(acc_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 380, -1, -1));
+        acc_id.setText("  ID");
+        jPanel1.add(acc_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 370, 30, 30));
 
         p_add.setBackground(new java.awt.Color(42, 59, 159));
         p_add.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
