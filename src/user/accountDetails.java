@@ -26,6 +26,11 @@ public class accountDetails extends javax.swing.JFrame {
      */
     public accountDetails() {
         initComponents();
+        fn.setEditable(false);
+        ln.setEditable(false);
+        em.setEditable(false);
+        un.setEditable(false);
+        ps.setEditable(false);
          Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     int screenWidth = screenSize.width;
     int screenHeight = screenSize.height;
@@ -91,7 +96,7 @@ public class accountDetails extends javax.swing.JFrame {
         });
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         jLabel1.setText("ACCOUNT INFORMATION ");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 26));
 
@@ -103,8 +108,9 @@ public class accountDetails extends javax.swing.JFrame {
         acc_fn.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         acc_fn.setText("User");
 
-        iddisplay.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        iddisplay.setText(" ID");
+        iddisplay.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        iddisplay.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        iddisplay.setText("ID");
 
         Cnp.setBackground(new java.awt.Color(255, 51, 51));
         Cnp.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -166,7 +172,7 @@ public class accountDetails extends javax.swing.JFrame {
                 .addComponent(acc_fn, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(iddisplay)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
                 .addComponent(Cnp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
         );
@@ -259,10 +265,7 @@ public class accountDetails extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -291,7 +294,8 @@ public class accountDetails extends javax.swing.JFrame {
        fn.setText(""+sess.getFname());
        ln.setText(""+sess.getLname());
        em.setText(""+sess.getEmail());
-       
+       un.setText(""+sess.getUsername());
+       ps.setText(""+sess.getPassword());
     }//GEN-LAST:event_formWindowActivated
 
     private void fnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fnActionPerformed
@@ -331,7 +335,7 @@ public class accountDetails extends javax.swing.JFrame {
         Color navcolor = new Color(255,51,51);
         Color hovercolor = new Color(204,255,51);
         
-        Cnp.setBackground(hovercolor);
+        Cnp.setBackground(navcolor);
     }//GEN-LAST:event_CnpMouseExited
 
     /**

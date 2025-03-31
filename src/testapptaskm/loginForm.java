@@ -124,10 +124,10 @@ try {
         jPanel1.setBackground(new java.awt.Color(204, 102, 255));
         jPanel1.setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel1.setText("Login Form");
+        jLabel1.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        jLabel1.setText("Task Manager");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(20, 10, 100, 26);
+        jLabel1.setBounds(20, 10, 140, 26);
         jPanel1.add(user);
         user.setBounds(300, 90, 190, 37);
 

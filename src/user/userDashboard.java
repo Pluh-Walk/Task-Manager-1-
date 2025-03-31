@@ -81,7 +81,7 @@ public class userDashboard extends javax.swing.JFrame {
         });
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         jLabel1.setText("USER DASHBOARD");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 215, 26));
 
@@ -242,7 +242,7 @@ public class userDashboard extends javax.swing.JFrame {
         Color navcolor = new Color(255,153,102);
         Color hovercolor = new Color(204,255,51);
         
-        acc_as.setBackground(hovercolor);
+        acc_as.setBackground(navcolor);
     }//GEN-LAST:event_acc_asMouseExited
 
     /**

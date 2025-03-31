@@ -116,9 +116,10 @@ public class adminDashboard extends javax.swing.JFrame {
         jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 180, 110, 110));
 
         acc_name.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        acc_name.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         acc_name.setText("Administrator");
         acc_name.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel2.add(acc_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, -1, 30));
+        jPanel2.add(acc_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, -1, 30));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logout.png"))); // NOI18N
         jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -134,7 +135,7 @@ public class adminDashboard extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(12, 226, 240));
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         jLabel1.setText("ADMIN DASHBOARD");
         jPanel3.add(jLabel1);
 

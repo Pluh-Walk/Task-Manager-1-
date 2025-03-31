@@ -102,6 +102,7 @@ public class regForm extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jCheckBox1 = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -158,7 +159,7 @@ public class regForm extends javax.swing.JFrame {
         });
         getContentPane().add(un, new org.netbeans.lib.awtextra.AbsoluteConstraints(319, 155, 186, 29));
 
-        ut.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "User", " " }));
+        ut.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "User" }));
         ut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 utActionPerformed(evt);
@@ -203,12 +204,21 @@ public class regForm extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(12, 226, 240));
 
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
         jLabel1.setText("Registration Form");
         jPanel2.add(jLabel1);
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(-30, 0, 590, 30);
+
+        jCheckBox1.setBackground(new java.awt.Color(204, 102, 255));
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jCheckBox1);
+        jCheckBox1.setBounds(510, 200, 20, 21);
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 300));
 
@@ -293,6 +303,14 @@ public class regForm extends javax.swing.JFrame {
       JOptionPane.showMessageDialog(null, "Input User Info Into The Blanks");
     }//GEN-LAST:event_jLabel8MouseClicked
 
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+      if (jCheckBox1.isSelected()) { 
+        ps.setEchoChar((char) 0); 
+    } else {
+        ps.setEchoChar('•'); 
+    }
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+
     /**SS
      * @param args the command line arguments
      */
@@ -333,6 +351,7 @@ public class regForm extends javax.swing.JFrame {
     private javax.swing.JTextField fn;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

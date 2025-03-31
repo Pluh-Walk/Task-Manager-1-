@@ -137,7 +137,7 @@ public class regFormAD extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         jLabel1.setText("Employee Attribute Manipulator");
 
         jPanel1.setBackground(new java.awt.Color(204, 102, 255));
