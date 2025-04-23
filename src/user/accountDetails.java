@@ -108,7 +108,7 @@ public class accountDetails extends javax.swing.JFrame {
         acc_fn.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         acc_fn.setText("User");
 
-        iddisplay.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        iddisplay.setFont(new java.awt.Font("Segoe UI Light", 1, 12)); // NOI18N
         iddisplay.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         iddisplay.setText("ID");
 
@@ -172,7 +172,7 @@ public class accountDetails extends javax.swing.JFrame {
                 .addComponent(acc_fn, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(iddisplay)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
                 .addComponent(Cnp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
         );

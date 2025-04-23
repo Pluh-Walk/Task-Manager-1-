@@ -12,61 +12,59 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
-
 /**
  *
  * @author CHRISTIAN
  */
 public class usersForm extends javax.swing.JFrame {
-
+    
+    private static final Logger logger = Logger.getLogger(usersForm.class.getName());
+    
     /**
      * Creates new form adminDashboard
      */
     public usersForm() {
         initComponents();
-         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    int screenWidth = screenSize.width;
-    int screenHeight = screenSize.height;
+           Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
 
- 
-    int frameWidth = 690;
-    int frameHeight = 442;
+        int frameWidth = 690;
+        int frameHeight = 442;
 
- 
-    int centerX = (screenWidth - frameWidth) / 2;
-    int centerY = (screenHeight - frameHeight) / 2;
+        int centerX = (screenWidth - frameWidth) / 2;
+        int centerY = (screenHeight - frameHeight) / 2;
 
- 
-    setBounds(centerX, centerY, frameWidth, frameHeight);
-    setResizable(false);
+        setBounds(centerX, centerY, frameWidth, frameHeight);
+        setResizable(false);
 
-   
-    addComponentListener(new ComponentAdapter() {
-        @Override
-        public void componentMoved(ComponentEvent e) {
-            setLocation(centerX, centerY); 
-        }
-    });
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentMoved(ComponentEvent e) {
+                setLocation(centerX, centerY); 
+            }
+        });
         displayData();
     }
     
-        public void displayData(){
-        try{
+    public void displayData(){
+        try {
             dbConnector dbc = new dbConnector();
             ResultSet rs = dbc.getData("SELECT u_id, u_name, u_lname, u_email FROM tbl_user");
             usersTable.setModel(DbUtils.resultSetToTableModel(rs));
-             rs.close();
-        }catch(SQLException ex){
-            System.out.println("Errors: "+ex.getMessage());
-        
+            rs.close();
+            logger.info("Displayed user data successfully.");
+        } catch (SQLException ex) {
+            logger.log(Level.SEVERE, "Error displaying user data: " + ex.getMessage(), ex);
         } 
-        
-    
     }
         
     @SuppressWarnings("unchecked")
@@ -74,7 +72,6 @@ public class usersForm extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         usersTable = new javax.swing.JTable();
@@ -85,7 +82,8 @@ public class usersForm extends javax.swing.JFrame {
         acc_name = new javax.swing.JLabel();
         p_update = new javax.swing.JPanel();
         acc_name2 = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
+        p_delete = new javax.swing.JPanel();
+        acc_name3 = new javax.swing.JLabel();
         acc_name1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -100,11 +98,6 @@ public class usersForm extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(204, 51, 255));
         jPanel1.setForeground(new java.awt.Color(255, 51, 51));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jPanel4.setBackground(new java.awt.Color(42, 59, 159));
-        jPanel4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel4.setLayout(null);
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 140, 40));
 
         jPanel2.setBackground(new java.awt.Color(204, 153, 255));
 
@@ -197,10 +190,28 @@ public class usersForm extends javax.swing.JFrame {
 
         jPanel1.add(p_update, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 140, 40));
 
-        jPanel7.setBackground(new java.awt.Color(42, 59, 159));
-        jPanel7.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel7.setLayout(null);
-        jPanel1.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 140, 40));
+        p_delete.setBackground(new java.awt.Color(42, 59, 159));
+        p_delete.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        p_delete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                p_deleteMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                p_deleteMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                p_deleteMouseExited(evt);
+            }
+        });
+        p_delete.setLayout(null);
+
+        acc_name3.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        acc_name3.setText("DELETE");
+        acc_name3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        p_delete.add(acc_name3);
+        acc_name3.setBounds(40, 10, 70, 20);
+
+        jPanel1.add(p_delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 140, 40));
 
         acc_name1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         acc_name1.setText("Current User");
@@ -247,8 +258,9 @@ public class usersForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-        adminDashboard ds = new adminDashboard();
-        ds.setVisible(true);
+       logger.info("Navigating to add user form.");
+        regFormAD rfd = new regFormAD();
+        rfd.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel2MouseClicked
 
@@ -295,39 +307,88 @@ public class usersForm extends javax.swing.JFrame {
     }//GEN-LAST:event_p_addMouseClicked
 
     private void p_updateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p_updateMouseClicked
- int rowindex = usersTable.getSelectedRow();
+   int rowindex = usersTable.getSelectedRow();
 
-if (rowindex < 0) {
-    JOptionPane.showMessageDialog(null, "Please select an Item!");
-} else {
-    try {
-        dbConnector dbc = new dbConnector();
-        TableModel tbl = usersTable.getModel(); 
-        ResultSet rs = dbc.getData("SELECT * FROM tbl_user WHERE u_id = '" + tbl.getValueAt(rowindex, 0) + "'");
+        if (rowindex < 0) {
+            JOptionPane.showMessageDialog(null, "Please select an Item!");
+            logger.warning("No item selected for update.");
+        } else {
+            try {
+                dbConnector dbc = new dbConnector();
+                TableModel tbl = usersTable.getModel(); 
+                ResultSet rs = dbc.getData("SELECT * FROM tbl_user WHERE u_id = '" + tbl.getValueAt(rowindex, 0) + "'");
 
-        if (rs.next()) {
-            regFormAD rfd = new regFormAD();
-            rfd.uid.setText(String.valueOf(rs.getInt("u_id")));
-            rfd.fn.setText(rs.getString("u_name"));
-            rfd.ln.setText(rs.getString("u_lname"));
-            rfd.em.setText(rs.getString("u_email"));
-            rfd.un.setText(rs.getString("u_username"));
-            rfd.ps.setText(rs.getString("u_pass"));
-            rfd.ut.setSelectedItem(rs.getString("u_type"));
-            rfd.us.setSelectedItem(rs.getString("u_status"));
+                if (rs.next()) {
+                    regFormAD rfd = new regFormAD();
+                    rfd.uid.setText(String.valueOf(rs.getInt("u_id")));
+                    rfd.fn.setText(rs.getString("u_name"));
+                    rfd.ln.setText(rs.getString("u_lname"));
+                    rfd.em.setText(rs.getString("u_email"));
+                    rfd.un.setText(rs.getString("u_username"));
+                    rfd.ps.setText(rs.getString("u_pass"));
+                    rfd.ut.setSelectedItem(rs.getString("u_type"));
+                    rfd.us.setSelectedItem(rs.getString("u_status"));
 
-            rfd.add.setEnabled(false);
-            rfd.update.setEnabled(true);
+                    rfd.add.setEnabled(false);
+                    rfd.update.setEnabled(true);
 
-            rfd.setVisible(true);
-            this.dispose();
+                    rfd.setVisible(true);
+                    this.dispose();
+                    logger.info("Navigated to edit user form for user ID: " + rs.getInt("u_id"));
+                }
+            } catch (SQLException ex) {
+                logger.log(Level.SEVERE, "Error fetching data for user update: " + ex.getMessage(), ex);
+            }
         }
-    } catch (SQLException ex) {
-        System.out.println(ex);
-    }
-}
-
     }//GEN-LAST:event_p_updateMouseClicked
+
+    private void p_deleteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p_deleteMouseEntered
+
+        Color hovercolor = new Color(51,126,159);
+        
+        p_delete.setBackground(hovercolor);
+    }//GEN-LAST:event_p_deleteMouseEntered
+
+    private void p_deleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p_deleteMouseClicked
+          int rowindex = usersTable.getSelectedRow();
+
+    if (rowindex < 0) {
+        JOptionPane.showMessageDialog(null, "Please select a user to delete!");
+    } else {
+        int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this user?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
+        
+        if (confirm == JOptionPane.YES_OPTION) {
+            TableModel tbl = usersTable.getModel(); 
+            String id = tbl.getValueAt(rowindex, 0).toString(); 
+
+            dbConnector dbc = new dbConnector();
+            try {
+                
+                boolean isDeleted = dbc.deleteUserById(id);
+
+                
+                if (isDeleted) {
+                    dbc.logAction(Session.getInstance().getUid(), "Deleted user with ID " + id);
+                    JOptionPane.showMessageDialog(null, "User deleted successfully.");
+                    displayData(); 
+                } else {
+                    JOptionPane.showMessageDialog(null, "Failed to delete user.");
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+            }
+        }
+    }
+
+    }//GEN-LAST:event_p_deleteMouseClicked
+
+    private void p_deleteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p_deleteMouseExited
+        Color navcolor = new Color(42,59,159);
+        
+        p_delete.setBackground(navcolor);
+    }//GEN-LAST:event_p_deleteMouseExited
 
     /**
      * @param args the command line arguments
@@ -370,16 +431,16 @@ if (rowindex < 0) {
     private javax.swing.JLabel acc_name;
     private javax.swing.JLabel acc_name1;
     private javax.swing.JLabel acc_name2;
+    private javax.swing.JLabel acc_name3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel p_add;
+    private javax.swing.JPanel p_delete;
     private javax.swing.JPanel p_update;
     private javax.swing.JTable usersTable;
     // End of variables declaration//GEN-END:variables

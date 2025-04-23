@@ -5,7 +5,6 @@
  */
 package admin;
 
-import testapptaskm.*;
 import config.dbConnector;
 import java.awt.Dimension;
 import java.awt.Toolkit;

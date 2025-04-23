@@ -105,8 +105,9 @@ public class ChangePassword extends javax.swing.JFrame {
         acc_fn.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         acc_fn.setText("User");
 
-        iddisplay.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        iddisplay.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         iddisplay.setText("(UID)");
+        iddisplay.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -119,10 +120,9 @@ public class ChangePassword extends javax.swing.JFrame {
                         .addComponent(jLabel2))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(47, 47, 47)
-                        .addComponent(acc_fn))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(iddisplay)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(iddisplay)
+                            .addComponent(acc_fn))))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -134,7 +134,7 @@ public class ChangePassword extends javax.swing.JFrame {
                 .addComponent(acc_fn, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(iddisplay)
-                .addContainerGap(187, Short.MAX_VALUE))
+                .addContainerGap(195, Short.MAX_VALUE))
         );
 
         jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 120, 310));
@@ -244,36 +244,40 @@ public class ChangePassword extends javax.swing.JFrame {
     }//GEN-LAST:event_oldpassActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    try {
-            dbConnector dbc = new dbConnector();
-            Session sess = Session.getInstance();
+     try {
+        dbConnector dbc = new dbConnector();
+        Session sess = Session.getInstance();
 
-            String query = "SELECT * FROM tbl_user WHERE u_id = '" + sess.getUid() + "'";
-            ResultSet rs = dbc.getData(query);
+        String query = "SELECT * FROM tbl_user WHERE u_id = '" + sess.getUid() + "'";
+        ResultSet rs = dbc.getData(query);
 
-            if (rs.next()) {
-                String oldbpass = rs.getString("u_pass");
-                String oldhash = passwordHasher.hashPassword(oldpass.getText());
+        if (rs.next()) {
+            String oldbpass = rs.getString("u_pass");
+            String oldhash = passwordHasher.hashPassword(oldpass.getText());
 
-                if (oldbpass.equals(oldhash)) {
-                    if (!newpass.getText().equals(conpass.getText())) {
-                        JOptionPane.showMessageDialog(null, "Please confirm your password!");
-                        return;
-                    }
-
-                    String npass = passwordHasher.hashPassword(newpass.getText());
-                    dbc.updateData("UPDATE tbl_user SET u_pass = '" + npass + "' WHERE u_id = '" + sess.getUid() + "'");
-                    loginForm lg = new loginForm();
-                    lg.setVisible(true);
-                    this.dispose();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Old Password is Incorrect!");
+            if (oldbpass.equals(oldhash)) {
+                if (!newpass.getText().equals(conpass.getText())) {
+                    JOptionPane.showMessageDialog(null, "Please confirm your password!");
+                    return;
                 }
+
+                String npass = passwordHasher.hashPassword(newpass.getText());
+                dbc.updateData("UPDATE tbl_user SET u_pass = '" + npass + "' WHERE u_id = '" + sess.getUid() + "'");
+
+                // ✅ Add log here
+                dbc.logAction(sess.getUid(), "User changed password");
+
+                JOptionPane.showMessageDialog(null, "Password changed successfully. Please log in again.");
+                loginForm lg = new loginForm();
+                lg.setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Old Password is Incorrect!");
             }
-        } catch (SQLException | NoSuchAlgorithmException ex) {
-            System.out.println(""+ex);
         }
-                                       
+    } catch (SQLException | NoSuchAlgorithmException ex) {
+        System.out.println("" + ex);
+    }         
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
