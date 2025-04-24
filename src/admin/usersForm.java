@@ -129,7 +129,7 @@ public class usersForm extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 90, 520, 330));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/undo.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/previous.png"))); // NOI18N
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel2MouseClicked(evt);
@@ -228,9 +228,9 @@ public class usersForm extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(264, 264, 264)
+                .addGap(282, 282, 282)
                 .addComponent(jLabel1)
-                .addContainerGap(315, Short.MAX_VALUE))
+                .addContainerGap(297, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -258,9 +258,9 @@ public class usersForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-       logger.info("Navigating to add user form.");
-        regFormAD rfd = new regFormAD();
-        rfd.setVisible(true);
+       
+        adminDashboard adb = new adminDashboard();
+        adb.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel2MouseClicked
 
@@ -301,13 +301,15 @@ public class usersForm extends javax.swing.JFrame {
     }//GEN-LAST:event_p_updateMouseExited
 
     private void p_addMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p_addMouseClicked
+        logger.info("Navigating to add user form.");
         regFormAD rfd = new regFormAD();
         rfd.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_p_addMouseClicked
 
     private void p_updateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p_updateMouseClicked
-   int rowindex = usersTable.getSelectedRow();
+        logger.info("Navigating to update user form.");
+        int rowindex = usersTable.getSelectedRow();
 
         if (rowindex < 0) {
             JOptionPane.showMessageDialog(null, "Please select an Item!");
@@ -325,7 +327,6 @@ public class usersForm extends javax.swing.JFrame {
                     rfd.ln.setText(rs.getString("u_lname"));
                     rfd.em.setText(rs.getString("u_email"));
                     rfd.un.setText(rs.getString("u_username"));
-                    rfd.ps.setText(rs.getString("u_pass"));
                     rfd.ut.setSelectedItem(rs.getString("u_type"));
                     rfd.us.setSelectedItem(rs.getString("u_status"));
 
@@ -343,7 +344,7 @@ public class usersForm extends javax.swing.JFrame {
     }//GEN-LAST:event_p_updateMouseClicked
 
     private void p_deleteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p_deleteMouseEntered
-
+           
         Color hovercolor = new Color(51,126,159);
         
         p_delete.setBackground(hovercolor);
@@ -351,7 +352,7 @@ public class usersForm extends javax.swing.JFrame {
 
     private void p_deleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p_deleteMouseClicked
           int rowindex = usersTable.getSelectedRow();
-
+          logger.info("Navigating to delete a user from the form.");
     if (rowindex < 0) {
         JOptionPane.showMessageDialog(null, "Please select a user to delete!");
     } else {

@@ -75,7 +75,7 @@ public class regFormAD extends javax.swing.JFrame {
     System.out.println("SQL Exception: " + ex);
 }
     
-    return false; // No duplicates found
+    return false; 
 }
     public boolean updateCheck() {
     dbConnector dbc = new dbConnector();
@@ -124,8 +124,6 @@ public class regFormAD extends javax.swing.JFrame {
         em = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         un = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        ps = new javax.swing.JPasswordField();
         refresh = new javax.swing.JButton();
         update = new javax.swing.JButton();
         del = new javax.swing.JButton();
@@ -169,7 +167,7 @@ public class regFormAD extends javax.swing.JFrame {
             }
         });
         jPanel1.add(us);
-        us.setBounds(110, 370, 180, 30);
+        us.setBounds(110, 330, 180, 30);
 
         ut.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "User", " " }));
         ut.addActionListener(new java.awt.event.ActionListener() {
@@ -178,17 +176,17 @@ public class regFormAD extends javax.swing.JFrame {
             }
         });
         jPanel1.add(ut);
-        ut.setBounds(110, 330, 180, 30);
+        ut.setBounds(110, 290, 180, 30);
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel9.setText("User Status");
         jPanel1.add(jLabel9);
-        jLabel9.setBounds(20, 370, 80, 30);
+        jLabel9.setBounds(20, 330, 80, 30);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel7.setText("Account Type");
         jPanel1.add(jLabel7);
-        jLabel7.setBounds(10, 330, 95, 30);
+        jLabel7.setBounds(10, 290, 95, 30);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("First Name");
@@ -241,19 +239,6 @@ public class regFormAD extends javax.swing.JFrame {
         });
         jPanel1.add(un);
         un.setBounds(110, 250, 180, 29);
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel6.setText("Password");
-        jPanel1.add(jLabel6);
-        jLabel6.setBounds(30, 287, 70, 30);
-
-        ps.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                psActionPerformed(evt);
-            }
-        });
-        jPanel1.add(ps);
-        ps.setBounds(110, 290, 180, 28);
 
         refresh.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         refresh.setText("REFRESH");
@@ -337,14 +322,9 @@ public class regFormAD extends javax.swing.JFrame {
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
     if (fn.getText().isEmpty() || ln.getText().isEmpty() || em.getText().isEmpty() 
-        || un.getText().isEmpty() || ps.getText().isEmpty()) {
+        || un.getText().isEmpty()) {
         
         JOptionPane.showMessageDialog(null, "All fields are required!");
-    
-    } else if (ps.getText().length() < 8) {
-        
-        JOptionPane.showMessageDialog(null, "Password character should be 8 above");
-        ps.setText("");
     
     } else if (updateCheck()) {
         
@@ -356,7 +336,6 @@ public class regFormAD extends javax.swing.JFrame {
             + "u_lname = '" + ln.getText() + "', "
             + "u_email = '" + em.getText() + "', "
             + "u_username = '" + un.getText() + "', "
-            + "u_pass = '" + ps.getText() + "', "
             + "u_type = '" + ut.getSelectedItem() + "', "
             + "u_status = '" + us.getSelectedItem() + "' WHERE u_id = '" + uid.getText() + "';");
         
@@ -370,10 +349,6 @@ public class regFormAD extends javax.swing.JFrame {
     private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_refreshActionPerformed
-
-    private void psActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_psActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_psActionPerformed
 
     private void unActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unActionPerformed
         // TODO add your handling code here:
@@ -407,7 +382,7 @@ public class regFormAD extends javax.swing.JFrame {
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
         dbConnector dbc = new dbConnector();
 
-        if (fn.getText().isEmpty() || ln.getText().isEmpty() || em.getText().isEmpty() || un.getText().isEmpty() || ps.getPassword().length == 0) {
+        if (fn.getText().isEmpty() || ln.getText().isEmpty() || em.getText().isEmpty() || un.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "All fields are required!");
             return;
         } else if (duplicateCheck()) {
@@ -415,10 +390,7 @@ public class regFormAD extends javax.swing.JFrame {
             return;
         }
 
-        if (ps.getPassword().length < 8) {
-            JOptionPane.showMessageDialog(null, "Password should be at least 8 characters long!");
-            return;
-        }
+        
 
         // Email validation using regex
         String email = em.getText();
@@ -429,7 +401,7 @@ public class regFormAD extends javax.swing.JFrame {
         }
 
         String query = String.format("INSERT INTO tbl_user (u_name, u_lname, u_email, u_username, u_pass, u_type, u_status) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '"+us.getSelectedItem()+"')",
-            fn.getText(), ln.getText(), email, un.getText(), new String(ps.getPassword()), ut.getSelectedItem());
+            fn.getText(), ln.getText(), email, un.getText(), ut.getSelectedItem());
 
         if (dbc.insertData(query)) {
             JOptionPane.showMessageDialog(null, "Registration Success!");
@@ -500,14 +472,12 @@ public class regFormAD extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     public javax.swing.JTextField ln;
-    public javax.swing.JPasswordField ps;
     public javax.swing.JButton refresh;
     public javax.swing.JTextField uid;
     public javax.swing.JTextField un;
