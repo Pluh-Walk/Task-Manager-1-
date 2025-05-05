@@ -62,41 +62,41 @@ public class loginForm extends javax.swing.JFrame {
     public static boolean loginAcc(String username, String password){
       dbConnector connector = new dbConnector();
 
-try {
-    String query = "SELECT * FROM tbl_user WHERE u_username = '" + username + "'";
-    ResultSet resultSet = connector.getData(query);
+ try {
+        String query = "SELECT * FROM tbl_user WHERE u_username = '" + username + "'";
+        ResultSet resultSet = connector.getData(query);
 
-    if (resultSet.next()) {
-        String hashedPass = resultSet.getString("u_pass");
-        String rehashedPass = passwordHasher.hashPassword(password);
+        if (resultSet.next()) {
+            String hashedPass = resultSet.getString("u_pass");
+            String rehashedPass = passwordHasher.hashPassword(password);
 
-        
-        System.out.println(""+hashedPass);
-        System.out.println(""+rehashedPass);
-        if (hashedPass.equals(rehashedPass)) {
-            status = resultSet.getString("u_status");
-            type = resultSet.getString("u_type");
+            if (hashedPass.equals(rehashedPass)) {
+                status = resultSet.getString("u_status");
+                type = resultSet.getString("u_type");
 
-            Session sess = Session.getInstance();
-            sess.setUid(resultSet.getInt("u_id"));
-            sess.setFname(resultSet.getString("u_name"));
-            sess.setLname(resultSet.getString("u_lname"));
-            sess.setEmail(resultSet.getString("u_email"));
-            sess.setUsername(resultSet.getString("u_username"));
-            sess.setType(resultSet.getString("u_type"));
-            sess.setStatus(resultSet.getString("u_status"));
+                Session sess = Session.getInstance();
+                sess.setUid(resultSet.getInt("u_id"));
+                sess.setFname(resultSet.getString("u_name"));
+                sess.setLname(resultSet.getString("u_lname"));
+                sess.setEmail(resultSet.getString("u_email"));
+                sess.setUsername(resultSet.getString("u_username"));
+                sess.setType(resultSet.getString("u_type"));
+                sess.setStatus(resultSet.getString("u_status"));
+                
+                // Log the successful login action
+                connector.logAction(sess.getUid(), "Logged in successfully");
 
-            return true;
+                return true;
+            } else {
+                System.out.println("Password Don't Match");
+                return false;
+            }
         } else {
-            System.out.println("Password Don't Match");
             return false;
         }
-    } else {
+    } catch (SQLException | NoSuchAlgorithmException ex) {
         return false;
     }
-} catch (SQLException | NoSuchAlgorithmException ex) {
-    return false;
-}
     }   
     /**
      * This method is called from within the constructor to initialize the form.
@@ -118,6 +118,7 @@ try {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -179,17 +180,22 @@ try {
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/001-team.png"))); // NOI18N
         jPanel1.add(jLabel5);
-        jLabel5.setBounds(40, 60, 130, 110);
+        jLabel5.setBounds(40, 80, 130, 110);
 
         jPanel2.setBackground(new java.awt.Color(12, 226, 240));
         jPanel1.add(jPanel2);
         jPanel2.setBounds(0, 0, 590, 40);
 
+        jLabel6.setForeground(new java.awt.Color(51, 0, 204));
+        jLabel6.setText("Forgot Password ?");
+        jPanel1.add(jLabel6);
+        jLabel6.setBounds(320, 170, 100, 20);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,28 +207,24 @@ try {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(loginAcc(user.getText(),pass.getText())){
-            if(!status.equals("Active")){
-            JOptionPane.showMessageDialog(null,"Account Still Pending!");
-            }else{
-            if(type.equals("Admin")){
-            adminDashboard ads = new adminDashboard();
-            ads.setVisible(true);
-            this.dispose();
-                
-            }else if(type.equals("User")){
-            JOptionPane.showMessageDialog(null,"Login Successfully");
-            userDashboard uds = new userDashboard();
-            uds.setVisible(true);
-            this.dispose();
-            }
-        
+        if (loginAcc(user.getText(), pass.getText())) {
+        if (!status.equals("Active")) {
+            JOptionPane.showMessageDialog(null, "Account Still Pending!");
+        } else {
+            if (type.equals("Admin")) {
+                adminDashboard ads = new adminDashboard();
+                ads.setVisible(true);
+                this.dispose();
+            } else if (type.equals("User")) {
+                JOptionPane.showMessageDialog(null, "Login Successfully");
+                userDashboard uds = new userDashboard();
+                uds.setVisible(true);
+                this.dispose();
             }
         }
-        
-        else {
-        JOptionPane.showMessageDialog(null,"Invalid Account");
-        }
+    } else {
+        JOptionPane.showMessageDialog(null, "Invalid Account");
+    }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void trMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_trMouseClicked
@@ -285,6 +287,7 @@ try {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPasswordField pass;

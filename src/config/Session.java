@@ -1,92 +1,92 @@
-package config;
+    package config;
 
-public class Session {
-    private static Session instance;
-    private int uid;
-    private String fname;
-    private String lname;
-    private String email;
-    private String username;
-    private String status;
-    private String type;
-    private String password;
-    
-    private Session() {
-        // Private constructor prevents instances
-    }
+    public class Session {
+        private static Session instance;
+        private int uid;
+        private String fname;
+        private String lname;
+        private String email;
+        private String username;
+        private String status;
+        private String type;
+        private String password;
 
-    public static synchronized Session getInstance() {
-        if (instance == null) {
-            instance = new Session();
+        private Session() {
+            // Private constructor prevents instances
         }
-        return instance;
-    }
 
-    public static boolean isInstanceEmpty() {
-        return instance == null;
-    }
+        public static synchronized Session getInstance() {
+            if (instance == null) {
+                instance = new Session();
+            }
+            return instance;
+        }
 
-    public int getUid() {
-        return uid;
-    }
+        public static boolean isInstanceEmpty() {
+            return instance == null;
+        }
 
-    public void setUid(int uid) {
-        this.uid = uid;
-    }
+        public int getUid() {
+            return uid;
+        }
 
-    public String getFname() {
-        return fname;
-    }
+        public void setUid(int uid) {
+            this.uid = uid;
+        }
 
-    public void setFname(String fname) {
-        this.fname = fname;
-    }
+        public String getFname() {
+            return fname;
+        }
 
-    public String getLname() {
-        return lname;
-    }
+        public void setFname(String fname) {
+            this.fname = fname;
+        }
 
-    public void setLname(String lname) {
-        this.lname = lname;
-    }
+        public String getLname() {
+            return lname;
+        }
 
-    public String getEmail() {
-        return email;
-    }
+        public void setLname(String lname) {
+            this.lname = lname;
+        }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+        public String getEmail() {
+            return email;
+        }
 
-    public String getUsername() {
-        return username;
-    }
+        public void setEmail(String email) {
+            this.email = email;
+        }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+        public String getUsername() {
+            return username;
+        }
 
-    public String getStatus() {
-        return status;
-    }
+        public void setUsername(String username) {
+            this.username = username;
+        }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+        public String getStatus() {
+            return status;
+        }
 
-    public String getType() {
-        return type;
-    }
+        public void setStatus(String status) {
+            this.status = status;
+        }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-    
-    public String getPassword() {
-        return password;
-    }
+        public String getType() {
+            return type;
+        }
 
-    public void setPassword(String password) {
-        this.password = password;
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
     }
-}

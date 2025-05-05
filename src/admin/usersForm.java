@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package admin;
 
 import config.Session;
@@ -301,46 +297,56 @@ public class usersForm extends javax.swing.JFrame {
     }//GEN-LAST:event_p_updateMouseExited
 
     private void p_addMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p_addMouseClicked
-        logger.info("Navigating to add user form.");
-        regFormAD rfd = new regFormAD();
-        rfd.setVisible(true);
-        this.dispose();
+    logger.info("Navigating to add user form.");
+    regFormAD rfd = new regFormAD();
+    rfd.setVisible(true);
+    rfd.remove.setEnabled(false);
+    rfd.select.setEnabled(true);
+    new dbConnector().logAction(Session.getInstance().getUid(), "Navigated to add user form.");
+    
+    this.dispose();
     }//GEN-LAST:event_p_addMouseClicked
 
     private void p_updateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p_updateMouseClicked
-        logger.info("Navigating to update user form.");
-        int rowindex = usersTable.getSelectedRow();
+         logger.info("Navigating to update user form.");
+    int rowindex = usersTable.getSelectedRow();
 
-        if (rowindex < 0) {
-            JOptionPane.showMessageDialog(null, "Please select an Item!");
-            logger.warning("No item selected for update.");
-        } else {
-            try {
-                dbConnector dbc = new dbConnector();
-                TableModel tbl = usersTable.getModel(); 
-                ResultSet rs = dbc.getData("SELECT * FROM tbl_user WHERE u_id = '" + tbl.getValueAt(rowindex, 0) + "'");
+    if (rowindex < 0) {
+        JOptionPane.showMessageDialog(null, "Please select an Item!");
+        logger.warning("No item selected for update.");
+    } else {
+        try {
+            dbConnector dbc = new dbConnector();
+            TableModel tbl = usersTable.getModel(); 
+            ResultSet rs = dbc.getData("SELECT * FROM tbl_user WHERE u_id = '" + tbl.getValueAt(rowindex, 0) + "'");
 
-                if (rs.next()) {
-                    regFormAD rfd = new regFormAD();
-                    rfd.uid.setText(String.valueOf(rs.getInt("u_id")));
-                    rfd.fn.setText(rs.getString("u_name"));
-                    rfd.ln.setText(rs.getString("u_lname"));
-                    rfd.em.setText(rs.getString("u_email"));
-                    rfd.un.setText(rs.getString("u_username"));
-                    rfd.ut.setSelectedItem(rs.getString("u_type"));
-                    rfd.us.setSelectedItem(rs.getString("u_status"));
+            if (rs.next()) {
+                regFormAD rfd = new regFormAD();
+                rfd.uid.setText(String.valueOf(rs.getInt("u_id")));
+                rfd.fn.setText(rs.getString("u_name"));
+                rfd.ln.setText(rs.getString("u_lname"));
+                rfd.em.setText(rs.getString("u_email"));
+                rfd.un.setText(rs.getString("u_username"));
+                rfd.ut.setSelectedItem(rs.getString("u_type"));
+                rfd.us.setSelectedItem(rs.getString("u_status"));
 
-                    rfd.add.setEnabled(false);
-                    rfd.update.setEnabled(true);
+                // Load and display the image
+                String imagePath = rs.getString("u_image"); // Ensure this is the correct column name
+                rfd.loadImage(imagePath);
+                
+                rfd.add.setEnabled(false);
+                rfd.update.setEnabled(true);
 
-                    rfd.setVisible(true);
-                    this.dispose();
-                    logger.info("Navigated to edit user form for user ID: " + rs.getInt("u_id"));
-                }
-            } catch (SQLException ex) {
-                logger.log(Level.SEVERE, "Error fetching data for user update: " + ex.getMessage(), ex);
+                rfd.setVisible(true);
+                this.dispose();
+
+                
+                dbc.logAction(Session.getInstance().getUid(), "Navigated to update user form for user ID: " + rs.getInt("u_id"));
             }
+        } catch (SQLException ex) {
+            logger.log(Level.SEVERE, "Error fetching data for user update: " + ex.getMessage(), ex);
         }
+    }
     }//GEN-LAST:event_p_updateMouseClicked
 
     private void p_deleteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p_deleteMouseEntered
@@ -352,7 +358,7 @@ public class usersForm extends javax.swing.JFrame {
 
     private void p_deleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p_deleteMouseClicked
           int rowindex = usersTable.getSelectedRow();
-          logger.info("Navigating to delete a user from the form.");
+    logger.info("Navigating to delete a user from the form.");
     if (rowindex < 0) {
         JOptionPane.showMessageDialog(null, "Please select a user to delete!");
     } else {
@@ -364,25 +370,21 @@ public class usersForm extends javax.swing.JFrame {
 
             dbConnector dbc = new dbConnector();
             try {
-                
                 boolean isDeleted = dbc.deleteUserById(id);
 
-                
                 if (isDeleted) {
-                    dbc.logAction(Session.getInstance().getUid(), "Deleted user with ID " + id);
+                    dbc.logAction(Session.getInstance().getUid(), "Deleted user with ID " + id); // Log deletion
                     JOptionPane.showMessageDialog(null, "User deleted successfully.");
                     displayData(); 
                 } else {
                     JOptionPane.showMessageDialog(null, "Failed to delete user.");
                 }
-
             } catch (Exception e) {
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
             }
         }
     }
-
     }//GEN-LAST:event_p_deleteMouseClicked
 
     private void p_deleteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p_deleteMouseExited

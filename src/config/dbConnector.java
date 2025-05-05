@@ -67,8 +67,20 @@ public class dbConnector {
             return false;
         }
     }
+    
+    public boolean deleteTaskById(String id) {
+        String query = "DELETE FROM tbl_tasks WHERE t_id = ?";
+        try (PreparedStatement pstmt = connect.prepareStatement(query)) {
+            pstmt.setString(1, id);
+            int affectedRows = pstmt.executeUpdate();
+            return affectedRows > 0; // Returns true if a row was deleted
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false; // Return false in case of an error
+        }
+    }
 
-    // Remove the duplicate logAction method and use this one instead.
+   
     public boolean logAction(int userId, String action) {
         String query = "INSERT INTO logs (user_id, action, timestamp) VALUES (?, ?, NOW())";
         try (PreparedStatement stmt = connect.prepareStatement(query)) {
@@ -76,7 +88,7 @@ public class dbConnector {
             stmt.setString(2, action);
             int rowsAffected = stmt.executeUpdate();
             
-            // Return true if a row was inserted successfully
+           
             return rowsAffected > 0;
         } catch (SQLException e) {
             System.out.println("Error logging action: " + e.getMessage());
