@@ -79,6 +79,17 @@ public class dbConnector {
             return false; // Return false in case of an error
         }
     }
+        public boolean deleteProjectById(String id) {
+    String query = "DELETE FROM tbl_projects WHERE p_id = ?"; 
+    try (PreparedStatement pstmt = connect.prepareStatement(query)) {
+        pstmt.setString(1, id);
+        int affectedRows = pstmt.executeUpdate();
+        return affectedRows > 0; // Returns true if a row was deleted
+    } catch (Exception e) {
+        e.printStackTrace();
+        return false; // Return false in case of an error
+    }
+}
 
    
     public boolean logAction(int userId, String action) {

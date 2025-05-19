@@ -188,8 +188,13 @@ public class loginForm extends javax.swing.JFrame {
 
         jLabel6.setForeground(new java.awt.Color(51, 0, 204));
         jLabel6.setText("Forgot Password ?");
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel6MouseClicked(evt);
+            }
+        });
         jPanel1.add(jLabel6);
-        jLabel6.setBounds(320, 170, 100, 20);
+        jLabel6.setBounds(300, 170, 120, 20);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -244,6 +249,12 @@ public class loginForm extends javax.swing.JFrame {
         
                 
     }//GEN-LAST:event_jLabel4MouseClicked
+
+    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+        ForgotPass fs = new ForgotPass();
+        fs.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel6MouseClicked
 
     /**
      * @param args the command line arguments

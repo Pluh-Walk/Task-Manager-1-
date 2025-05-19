@@ -125,13 +125,13 @@ public class adminDashboard extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 110, 110, 110));
+        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 110, 110, 110));
 
         acc_name.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         acc_name.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         acc_name.setText("Administrator");
         acc_name.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel2.add(acc_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, -1, 30));
+        jPanel2.add(acc_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 330, -1, 30));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logout.png"))); // NOI18N
         jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -142,7 +142,7 @@ public class adminDashboard extends javax.swing.JFrame {
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 0, -1, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/administrator (2).png"))); // NOI18N
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, -1));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, -1, -1));
 
         jPanel3.setBackground(new java.awt.Color(12, 226, 240));
 
@@ -182,10 +182,15 @@ public class adminDashboard extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, 110, 110));
+        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 110, 110));
 
         jPanel5.setBackground(new java.awt.Color(255, 153, 255));
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel5MouseClicked(evt);
+            }
+        });
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/backlog.png"))); // NOI18N
 
@@ -218,7 +223,7 @@ public class adminDashboard extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 110, 110, 110));
+        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 110, 110, 110));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -273,6 +278,12 @@ public class adminDashboard extends javax.swing.JFrame {
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jLabel9MouseClicked
+
+    private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
+      projectsForm pfm = new projectsForm();
+      pfm.setVisible(true);
+      this.dispose();
+    }//GEN-LAST:event_jPanel5MouseClicked
 
     /**
      * @param args the command line arguments

@@ -128,11 +128,11 @@ public class tasksForm extends javax.swing.JFrame {
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/administrator (2).png"))); // NOI18N
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, -1, -1));
 
         acc_id.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         acc_id.setText("  ID");
-        jPanel1.add(acc_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 370, 30, 30));
+        jPanel1.add(acc_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 380, 30, 30));
 
         t_add.setBackground(new java.awt.Color(42, 59, 159));
         t_add.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -206,7 +206,7 @@ public class tasksForm extends javax.swing.JFrame {
         acc_name1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         acc_name1.setText("Current User");
         acc_name1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(acc_name1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, -1, 30));
+        jPanel1.add(acc_name1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 360, -1, 30));
 
         jPanel3.setBackground(new java.awt.Color(12, 226, 240));
 
@@ -259,8 +259,6 @@ public class tasksForm extends javax.swing.JFrame {
        taskFormAD tad = new taskFormAD();
     tad.setVisible(true);
     tad.ts.setEnabled(false);
-    tad.remove.setEnabled(false);
-    tad.select.setEnabled(true);
     new dbConnector().logAction(Session.getInstance().getUid(), "Navigated to add user form.");
     }//GEN-LAST:event_t_addMouseClicked
 
@@ -298,8 +296,7 @@ if (rowIndex < 0) {
             tf.tn.setText(rs.getString("title"));
             tf.td.setText(rs.getString("description"));
             tf.dd.setText(rs.getString("due_date"));
-            tf.tp.setSelectedItem(rs.getString("status")); 
-            tf.ts.setSelectedItem(rs.getString("priority")); 
+            tf.ts.setSelectedItem(rs.getString("status")); 
            
             
             tf.add.setEnabled(false);

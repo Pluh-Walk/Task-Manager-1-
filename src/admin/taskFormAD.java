@@ -2,6 +2,10 @@
 package admin;
 
 import config.dbConnector;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,11 +17,33 @@ public class taskFormAD extends javax.swing.JFrame {
     tn.setText("");
     td.setText("");
     dd.setText("");
-    tp.setSelectedIndex(0);
     ts.setSelectedIndex(0); 
 }
     public taskFormAD() {
         initComponents();
+          Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    int screenWidth = screenSize.width;
+    int screenHeight = screenSize.height;
+
+ 
+    int frameWidth = 436;
+    int frameHeight = 440;
+
+ 
+    int centerX = (screenWidth - frameWidth) / 2;
+    int centerY = (screenHeight - frameHeight) / 2;
+
+ 
+    setBounds(centerX, centerY, frameWidth, frameHeight);
+    setResizable(false);
+
+   
+    addComponentListener(new ComponentAdapter() {
+        @Override
+        public void componentMoved(ComponentEvent e) {
+            setLocation(centerX, centerY); 
+        }
+    });
     }
 
     /**
@@ -33,25 +59,19 @@ public class taskFormAD extends javax.swing.JFrame {
         add = new javax.swing.JButton();
         cancel = new javax.swing.JButton();
         ts = new javax.swing.JComboBox<>();
-        tp = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         tn = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         td = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         dd = new javax.swing.JTextField();
-        remove = new javax.swing.JButton();
         update = new javax.swing.JButton();
         del = new javax.swing.JButton();
         clear = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        image = new javax.swing.JLabel();
         refresh1 = new javax.swing.JButton();
-        select = new javax.swing.JButton();
         uid = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
 
@@ -87,26 +107,12 @@ public class taskFormAD extends javax.swing.JFrame {
             }
         });
         jPanel1.add(ts);
-        ts.setBounds(190, 370, 180, 30);
-
-        tp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "high", "medium", "low" }));
-        tp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tpActionPerformed(evt);
-            }
-        });
-        jPanel1.add(tp);
-        tp.setBounds(190, 330, 180, 30);
+        ts.setBounds(190, 330, 180, 30);
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel9.setText("Task Status");
         jPanel1.add(jLabel9);
-        jLabel9.setBounds(100, 370, 90, 30);
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel7.setText("Task Prioritization");
-        jPanel1.add(jLabel7);
-        jLabel7.setBounds(60, 330, 130, 30);
+        jLabel9.setBounds(100, 330, 90, 30);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Task Name");
@@ -146,16 +152,6 @@ public class taskFormAD extends javax.swing.JFrame {
         });
         jPanel1.add(dd);
         dd.setBounds(190, 290, 180, 29);
-
-        remove.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        remove.setText("REMOVE");
-        remove.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                removeActionPerformed(evt);
-            }
-        });
-        jPanel1.add(remove);
-        remove.setBounds(650, 370, 90, 30);
 
         update.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         update.setText("UPDATE");
@@ -198,26 +194,6 @@ public class taskFormAD extends javax.swing.JFrame {
         jPanel1.add(jPanel2);
         jPanel2.setBounds(0, 0, 890, 40);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(image, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(image, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
-                .addGap(19, 19, 19))
-        );
-
-        jPanel1.add(jPanel3);
-        jPanel3.setBounds(480, 90, 270, 270);
-
         refresh1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         refresh1.setText("REFRESH");
         refresh1.addActionListener(new java.awt.event.ActionListener() {
@@ -227,16 +203,6 @@ public class taskFormAD extends javax.swing.JFrame {
         });
         jPanel1.add(refresh1);
         refresh1.setBounds(80, 120, 90, 30);
-
-        select.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        select.setText("SELECT");
-        select.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                selectActionPerformed(evt);
-            }
-        });
-        jPanel1.add(select);
-        select.setBounds(490, 370, 90, 30);
 
         uid.setEnabled(false);
         uid.addActionListener(new java.awt.event.ActionListener() {
@@ -256,7 +222,7 @@ public class taskFormAD extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 818, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -272,7 +238,7 @@ public class taskFormAD extends javax.swing.JFrame {
     
     
     if (tn.getText().isEmpty() || td.getText().isEmpty() || dd.getText().isEmpty() || 
-        tp.getSelectedItem() == null || ts.getSelectedItem() == null) {
+         ts.getSelectedItem() == null) {
         JOptionPane.showMessageDialog(null, "All fields are required!");
         return;
     }
@@ -307,10 +273,6 @@ public class taskFormAD extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tsActionPerformed
 
-    private void tpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tpActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tpActionPerformed
-
     private void tnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tnActionPerformed
@@ -322,10 +284,6 @@ public class taskFormAD extends javax.swing.JFrame {
     private void ddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ddActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ddActionPerformed
-
-    private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
-     
-    }//GEN-LAST:event_removeActionPerformed
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
       
@@ -342,10 +300,6 @@ public class taskFormAD extends javax.swing.JFrame {
     private void refresh1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refresh1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_refresh1ActionPerformed
-
-    private void selectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectActionPerformed
-        
-    }//GEN-LAST:event_selectActionPerformed
 
     private void uidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uidActionPerformed
         // TODO add your handling code here:
@@ -392,23 +346,17 @@ public class taskFormAD extends javax.swing.JFrame {
     public javax.swing.JButton clear;
     public javax.swing.JTextField dd;
     public javax.swing.JButton del;
-    private javax.swing.JLabel image;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     public javax.swing.JButton refresh1;
-    public javax.swing.JButton remove;
-    public javax.swing.JButton select;
     public javax.swing.JTextField td;
     public javax.swing.JTextField tn;
-    public javax.swing.JComboBox<String> tp;
     public javax.swing.JComboBox<String> ts;
     public javax.swing.JTextField uid;
     public javax.swing.JButton update;

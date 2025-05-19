@@ -1,7 +1,12 @@
 
 package testapptaskm;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import javax.swing.JOptionPane;
+import static testapptaskm.EmailSender.sendEmail;
 
 /**
  *
@@ -14,6 +19,29 @@ public class ForgotPass extends javax.swing.JFrame {
     public ForgotPass() {
        
         initComponents();
+         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    int screenWidth = screenSize.width;
+    int screenHeight = screenSize.height;
+
+ 
+    int frameWidth =  544;
+    int frameHeight = 300;
+
+ 
+    int centerX = (screenWidth - frameWidth) / 2;
+    int centerY = (screenHeight - frameHeight) / 2;
+
+ 
+    setBounds(centerX, centerY, frameWidth, frameHeight);
+    setResizable(false);
+
+   
+    addComponentListener(new ComponentAdapter() {
+        @Override
+        public void componentMoved(ComponentEvent e) {
+            setLocation(centerX, centerY); 
+        }
+    });
         
     }
 
@@ -34,8 +62,8 @@ public class ForgotPass extends javax.swing.JFrame {
         txtVerify = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        SendBtn = new javax.swing.JButton();
+        VerifyBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -86,30 +114,30 @@ public class ForgotPass extends javax.swing.JFrame {
         jPanel1.add(jLabel3);
         jLabel3.setBounds(210, 70, 90, 30);
 
-        jButton1.setText("Send");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        SendBtn.setText("Send");
+        SendBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                SendBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1);
-        jButton1.setBounds(400, 110, 57, 30);
+        jPanel1.add(SendBtn);
+        SendBtn.setBounds(400, 110, 57, 30);
 
-        jButton2.setText("Verify Code");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        VerifyBtn.setText("Verify Code");
+        VerifyBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                VerifyBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2);
-        jButton2.setBounds(370, 200, 89, 23);
+        jPanel1.add(VerifyBtn);
+        VerifyBtn.setBounds(370, 200, 89, 23);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 556, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 553, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -134,13 +162,34 @@ public class ForgotPass extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtVerifyActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void SendBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SendBtnActionPerformed
+                                            
+    String generatedCode = String.valueOf((int)(Math.random() * 9000) + 1000); // 4-digit code
+    String email = txtEmail.getText();
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    EmailCodeStorage.code = generatedCode;
+    EmailCodeStorage.email = email;
+
+    String subject = "Your Verification Code";
+    String body = "Your verification code is: " + generatedCode;
+
+    sendEmail(email, subject, body); 
+
+    JOptionPane.showMessageDialog(null, "Verification code sent to: " + email);
+
+
+    }//GEN-LAST:event_SendBtnActionPerformed
+
+    private void VerifyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerifyBtnActionPerformed
+            String inputCode = txtVerify.getText();
+        if (inputCode.equals(EmailCodeStorage.code)) {
+            JOptionPane.showMessageDialog(this, "Code Verified!");
+            this.dispose();
+            new ResetPass(txtEmail.getText()).setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Invalid code. Please try again.");
+        }
+    }//GEN-LAST:event_VerifyBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -181,8 +230,8 @@ public class ForgotPass extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton SendBtn;
+    private javax.swing.JButton VerifyBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
